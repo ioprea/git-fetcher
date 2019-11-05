@@ -1,0 +1,8 @@
+.searchBar {
+  display: flex;
+}
+
+.searchBar i {
+  cursor: pointer;
+  padding-top: 10px;
+}
