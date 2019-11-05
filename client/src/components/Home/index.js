@@ -1,6 +1,6 @@
 import React, { useReducer } from 'react';
 import './Home.css';
-import Header from '../../views'
+import Header from '../../views/Header'
 import RepoList from '../RepoList';
 import axios from 'axios'
 
@@ -28,13 +28,17 @@ const Home = () => {
 
   const searchRepo = async () => {
     if (!state.username) {
-      dispatch({ type: 'updateFeedback', data: 'You must enter an username!' })
+      dispatch({ type: 'updateFeedback', data: 'You must enter a username!' })
       return
     }
+    let res
     dispatch({ type: 'reset' })
-    let res = await axios.get('https://api.github.com/users/' + state.username + '/repos');
-    console.log(res)
-    dispatch({ type: 'updateList', data: res.data.sort((a, b) => b.stargazers_count - a.stargazers_count) })
+    try {
+      res = await axios.get('https://api.github.com/users/' + state.username + '/repos');
+      dispatch({ type: 'updateList', data: res.data.sort((a, b) => b.stargazers_count - a.stargazers_count) })
+    } catch(e) {
+      dispatch({ type: 'updateFeedback', data: e.message || 'No user found' })
+    }
   }
 
   const reverseSort = () => {
@@ -49,7 +53,7 @@ const Home = () => {
       <div className="search-wrapper focused searchBar container">
         <input
           id="search"
-          placeholder="Search"
+          placeholder="Enter a github username"
           value={state.username}
           onChange={e => dispatch({ type: 'updateState', data: e.target.value })}
           onKeyDown={e => e.keyCode === 13 ? searchRepo() : null}

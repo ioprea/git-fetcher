@@ -1,0 +1,12 @@
+nav {
+  background-color: green;
+}
+
+.darkModeButton {
+  cursor: pointer;
+  padding: 0px 10px;
+}
+
+.darkModeButton:hover {
+  filter: brightness(20%);
+}

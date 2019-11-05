@@ -1,11 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import './index.css';
 import Home from './components/Home';
 import * as serviceWorker from './serviceWorker';
 
-import 'materialize-css';
 import 'materialize-css/dist/css/materialize.min.css';
 
 ReactDOM.render(<Home />, document.getElementById('root'));
